@@ -10,11 +10,6 @@ router.get('/api/sayHi', function (req, res, next) {
   res.send('hi');
 });
 
-router.post('/api/echo', function (req, res, next) {
-  const body = req.body;
-  res.json(body);
-});
-
 const MongoClient = require('mongodb').MongoClient;
 
 // index.js 執行就建立連線
