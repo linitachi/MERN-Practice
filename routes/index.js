@@ -1,13 +1,17 @@
 var express = require('express');
 const UserRouter = require('./users');
+
+const VerifyJWT = require('../middlewares/VerifyJWT');
+
 /**
  * 
  * @param {object} dependencies
  * @param {MongoService} dependencies.mongoService 
+ * @param {AuthRouter} dependencies.authRouter
  */
 function createRouter(dependencies) {
   // Get dependencies
-  const { mongoService } = dependencies;
+  const { mongoService, authRouter } = dependencies;
 
   // Create a router
   var router = express.Router();
@@ -21,7 +25,7 @@ function createRouter(dependencies) {
     res.send('hi');
   });
 
-  router.post('/api/echo', function (req, res, next) {
+  router.post('/api/echo', VerifyJWT(), function (req, res, next) {
     const body = req.body;
 
     mongoService.insertEcho(body)
@@ -78,6 +82,7 @@ function createRouter(dependencies) {
   });
 
   router.use('/user', UserRouter);
+  router.use('/api/auth', authRouter);
 
   return router;
 }

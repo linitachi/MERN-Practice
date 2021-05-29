@@ -29,7 +29,9 @@ function createMongoClient({ config }) {
 ////////// Dependency Injection (start)　/////////
 const { createContainer, asClass, asValue, asFunction, Lifetime } = require('awilix');
 const { createRouter: createRootRouter } = require('./routes/index');
+const { createRouter: createAuthRouter } = require('./routes/AuthRouter');
 const config = require('./configs/config');
+
 // 建立 awilix container
 const container = createContainer();
 
@@ -37,6 +39,7 @@ container.register({
   config: asValue(config, { lifetime: Lifetime.SINGLETON }),
   mongoClient: asFunction(createMongoClient, { lifetime: Lifetime.SINGLETON }),// 註冊為 mongoClient，且生命期為 SINGLETON (執行中只有一個物件)
   indexRouter: asFunction(createRootRouter, { lifetime: Lifetime.SINGLETON }), // 註冊為 indexRouter，利用工廠函數 createRootRouter 建立物件
+  authRouter: asFunction(createAuthRouter, { lifetime: Lifetime.SINGLETON }),
 });
 ////////// Dependency Injection (end)　/////////
 
