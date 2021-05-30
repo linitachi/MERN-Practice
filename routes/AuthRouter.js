@@ -3,7 +3,9 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 
 const EXPIRES_IN = 300 * 1000; // 3 sec
-const SECRET = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJpbGx5IiwiZW1haWwiOiJiaWxseUBnbWFpbC5jb20iLCJpYXQiOjE2MjIyNzY5NDcsImV4cCI6MTYyMjU3Njk0N30.KC0o1FSFBOZoiqswZBkoYDdNV-3JqdbbEhbOZ7tCUx4'; // 要和簽發時一樣，所以可以放在 ./configs/config.js 中
+// const SECRET = '123'; // 要和簽發時一樣，所以可以放在 ./configs/config.js 中
+// const config = require('../../configs/config');
+// const SECRET = config.JWT.SECRET;
 
 async function verifyUser(data) {
     const username = _.get(data, 'username');
@@ -24,7 +26,8 @@ async function verifyUser(data) {
  */
 function createRouter(dependencies) {
     // Get dependencies
-    const { } = dependencies;
+    const { config } = dependencies;
+    const SECRET = config.JWT.SECRET;
 
     // Create a router
     var router = express.Router();
