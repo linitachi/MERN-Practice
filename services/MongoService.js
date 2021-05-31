@@ -25,6 +25,13 @@ class MongoService {
     async insertEcho(data) {
         return this.echoDao.insert(data);
     }
+
+    async findEcho() {
+        return this.echoDao.find();
+    }
+    async deleteEcho() {
+        return this.echoDao.delete();
+    }
 }
 
 module.exports = MongoService;

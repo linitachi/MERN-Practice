@@ -35,6 +35,24 @@ function createRouter(dependencies) {
       .catch(next); // 發生 error 的話，next() 交給之後的 middleware 處理，express 有預設的處理方法
   });
 
+  router.get('/api/echo/find', function (req, res, next) {
+    mongoService.findEcho()
+      .then(result => {
+        res.json({ result });
+      })
+      .catch(next);
+  });
+
+  router.post('/api/echo/delete', function (req, res, next) {
+    const body = req.body;
+    mongoService.deleteEcho(body)
+      .then(() => {
+        res.json(body);
+      })
+      .catch(next); // 發生 error 的話，next() 交給之後的 middleware 處理，express 有預設的處理方法
+  });
+
+
   router.get('/api/mongo', function (req, res, next) {
     mongoService.isConnected()
       .then(isConnected => {

@@ -2,7 +2,6 @@
 const _ = require('lodash');
 const jsonwebtoken = require('jsonwebtoken');
 
-// const SECRET = '123'; // 要和簽發時一樣，所以可以放在 ./configs/config.js 中
 const config = require('../configs/config');
 const SECRET = config.JWT.SECRET;
 
